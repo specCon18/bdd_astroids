@@ -3,6 +3,9 @@ import constants
 import pygame
 
 class Player(circleshape.CircleShape):
+    
+    containers = []
+
     def __init__(self,x,y):
         super().__init__(x,y,constants.PLAYER_RADIUS)
         self.rotation = 0
