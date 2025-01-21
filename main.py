@@ -55,7 +55,11 @@ def main():
             if p1.is_colided(asteroid):
                 print("Game Over!")
                 sys.exit()
-        
+        for asteroid in asteroids:
+            for shot in shots:
+                if shot.is_colided(asteroid):
+                    asteroid.kill()
+                    shot.kill()
         pygame.display.flip()
         tick = clock.tick(60)
         dt = tick/1000
