@@ -6,6 +6,7 @@ from shot import Shot
 class Player(circleshape.CircleShape):
     
     containers = []
+    cooldown = 0
 
     def __init__(self,x,y):
         super().__init__(x,y,constants.PLAYER_RADIUS)
@@ -42,18 +43,24 @@ class Player(circleshape.CircleShape):
             self.move(-dt)
         if keys[pygame.K_SPACE]:
             self.shoot()
-    
+        
+        if self.cooldown > 0:
+            self.cooldown = self.cooldown - dt
+        else:
+            self.cooldown = 0
     def move(self,dt):
         forward = pygame.Vector2(0, 1).rotate(self.rotation)
         self.position += forward * constants.PLAYER_SPEED * dt
 
     def shoot(self):
-        # Create new shot at player position
-        shot = Shot(self.position.x, self.position.y)
+        if self.cooldown == 0:
+            # Create new shot at player position
+            shot = Shot(self.position.x, self.position.y)
     
-        # Calculate velocity (similar to your move method)
-        forward = pygame.Vector2(0, 1).rotate(self.rotation)
-        shot.velocity = forward * constants.PLAYER_SHOOT_SPEED
+            # Calculate velocity (similar to your move method)
+            forward = pygame.Vector2(0, 1).rotate(self.rotation)
+            shot.velocity = forward * constants.PLAYER_SHOOT_SPEED
     
-        # Add to container
-        Shot.containers[0].add(shot)
+            # Add to container
+            Shot.containers[0].add(shot)
+            self.cooldown = constants.PLAYER_SHOOT_COOLDOWN
