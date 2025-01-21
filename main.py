@@ -45,9 +45,12 @@ def main():
         
         for drawable in drawables:
             drawable.draw(screen)
-        
         for updatable in updatables:
             updatable.update(dt)
+        for asteroid in asteroids:
+            if asteroid.is_colided(p1):
+                print("Game Over!")
+                return
         
         pygame.display.flip()
         tick = clock.tick(60)
