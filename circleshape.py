@@ -15,10 +15,7 @@ class CircleShape(pygame.sprite.Sprite):
 
     def is_colided(self,other_circle):
         distance = self.position.distance_to(other_circle.position)
-        if other_circle.radius + self.radius <= distance:
-            return True
-        else:
-            return False
+        return distance <= other_circle.radius + self.radius
 
     def draw(self, screen):
         # sub-classes must override

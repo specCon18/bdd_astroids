@@ -1,4 +1,5 @@
 import pygame
+import sys
 from constants import *
 from player import Player
 from asteroidfield import AsteroidField
@@ -48,9 +49,9 @@ def main():
         for updatable in updatables:
             updatable.update(dt)
         for asteroid in asteroids:
-            if asteroid.is_colided(p1):
+            if p1.is_colided(asteroid):
                 print("Game Over!")
-                return
+                sys.exit()
         
         pygame.display.flip()
         tick = clock.tick(60)
